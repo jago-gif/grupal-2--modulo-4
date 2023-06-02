@@ -74,12 +74,33 @@
     
   </div>
 </div>
-  
 </main>
+<div>
+  <div class="container ">
+    <div class="row">
+      <div class="col-4 ">
+        <h3>selecione una empresa para ver su dashboard</h3>
+        <select class="form-select" aria-label="Default select example" id="dashBoard">
+        </select>
+      </div>
+      <div class="col-4">
+        <h3>Cantidad de importaciones</h3>
+        <canvas id="tortaTotalImp"></canvas>
+      </div>
+      <div class="col-4">
+        <h3>Cantidad de Valor en importaciones</h3>
+        <canvas id="tortaTotalValorImp"></canvas>
+      </div>
+    </div>
+   
+  </div>
+  
+</div>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  <script src="../dist/bundle.js" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="main.js" type="module"></script>
 </body>
 </html>
 
