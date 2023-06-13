@@ -1,18 +1,48 @@
 import { Empresa } from "./empresa.js";
 import { Importacion } from "./importacion.js"
 import { Producto } from "./producto.js"
+import { Importador } from "./importador.js";
+
+
+const rubrosImportaciones = [
+  "Maquinaria y equipos industriales",
+  "Productos electrónicos y tecnológicos",
+  "Automóviles y repuestos",
+  "Productos químicos y farmacéuticos",
+  "Textiles y prendas de vestir",
+  "Alimentos y bebidas",
+  "Productos de metal y acero",
+  "Productos de plástico",
+  "Materiales de construcción",
+  "Combustibles y energía",
+];
+
+const tamanoImportadora = [
+  "Grande",
+  "Mediana",
+  "Pequeña",
+];
+
 //creacion manual de productos
 let producto = new Producto("papa", 1000, 1);
 let producto2 = new Producto("peras", 2000, 10);
-let nuevaEmpresa;
+let nuevaEmpresa;//se tiene que borrar
 //creacion de empresa
-let empresa = new Empresa("EmpresaLinda", "11.111.111-1")
-let empresas = [];
+let empresas = [];//se tiene que borrar
+
+let importadora = new Importador(
+  "ImportadoraLinda",
+  "11.111.111-1",
+  "Maquinaria y equipos industriales",
+  "Pequeña"
+);
+console.log(importadora)
+let importadoras = [];
 let importaciones = [];
-empresas.push(empresa)
+importadoras.push(importadora)
 let productos = [producto, producto2]
 //creacion de importacion
-let importacion = new Importacion(productos, empresa.getId)
+let importacion = new Importacion(productos, importadora._id)
 importaciones.push(importacion)
 console.log(importacion)
 let selectEmpresaDashBoard;
@@ -23,7 +53,7 @@ let nombreEmpresa;
 let tablaEmpresas = document.getElementById('tablaEmpresas');
 //carga tabla de empresas
 function cargarEmpresas() {
-  let empresasCarga = empresas;
+  let empresasCarga = importadoras;
   let contTablaEmpresa = "";
   for (let empresa of empresasCarga) {
     contTablaEmpresa += `
@@ -46,7 +76,7 @@ function cargarImportaciones() {
     let precio = "";
     let nombre = "";
     let cantidad = "";
-     nombreEmpresa = empresa.buscarPorId(importacion._idEmpresa);
+     nombreEmpresa = importadora.buscarPorId(importacion._idEmpresa);
 
     let cantidadDeProductos = importacion.getProductos();
 //si tiene mas de un producto es array y itera los productos que tiene
@@ -89,10 +119,12 @@ function cargarImportaciones() {
 //metodo para crear una empresa desde el modal 
 document.getElementById("agregarEmpresa").addEventListener("click", function (event) {
   event.preventDefault();
-   nombreEmpresa = document.getElementById("nombre").value;
+  let nombreEmpresa = document.getElementById("nombre").value;
   let rutEmpresa = document.getElementById("rut").value;
-  nuevaEmpresa = new Empresa(nombreEmpresa, rutEmpresa)
-  empresas.push(nuevaEmpresa);
+  let rubroEmpresa = document.getElementById("rubroImportadora").value;
+  let tamanoEmpresa = document.getElementById("tamanoImportadora").value;
+  nuevaEmpresa = new Importador(nombreEmpresa, rutEmpresa,rubroEmpresa,tamanoEmpresa)
+  importadoras.push(nuevaEmpresa);
   document.getElementById("formEmpresa").reset();
 //recargar tabla
   cargarEmpresas();
@@ -131,6 +163,8 @@ $('#abrirModalEmpresa').click(function () {
   $('#modalEmpresa').modal('show');
 });
 let selectEmpresa;
+let selectTamano;
+let selectRubro;
 //abrir modal importaciones
 $('#abrirModalImportaciones').click(function () {
   //carga las empresas al selector de modal
@@ -141,13 +175,38 @@ $('#abrirModalImportaciones').click(function () {
 function cargarEmpresasEnSelect() {
   selectEmpresa = document.getElementById("idEmpresas");
   selectEmpresa.innerHTML = '';
-  for (let empresa of empresas) {
+  for (let empresa of importadoras) {
     let option = document.createElement("option");
     option.value = empresa._id;
     option.text = empresa._nombre;
     selectEmpresa.add(option);
   }
 }
+//genera los options de select Tamaño importadora
+function cargarTamanoEnSelect() {
+  selectTamano = document.getElementById("tamanoImportadora");
+  selectTamano.innerHTML = "";
+  for (let tamano of tamanoImportadora) {
+    let option = document.createElement("option");
+    option.value = tamano;
+    option.text = tamano;
+    selectTamano.add(option);
+  }
+}
+//genera los options de select rubro importadora
+
+function cargarRubroEnSelect() {
+  selectRubro = document.getElementById("rubroImportadora");
+  selectRubro.innerHTML = "";
+  for (let rubro of rubrosImportaciones) {
+    let option = document.createElement("option");
+    option.value = rubro;
+    option.text = rubro;
+    selectRubro.add(option);
+  }
+}
+cargarTamanoEnSelect();
+cargarRubroEnSelect();
 
 
 const totalValor = document.getElementById("totalValor");
@@ -167,7 +226,7 @@ function mostrarEmpresasSelect() {
   selectEmpresaDashBoard  = document.getElementById("dashBoard");
   selectEmpresaDashBoard.innerHTML = '';
  
-  for ( i; i<empresas.length; i++) {
+  for ( i; i<importadoras.length; i++) {
     let option = document.createElement("option");
     
     if(i===-1){
@@ -175,14 +234,47 @@ function mostrarEmpresasSelect() {
       option.text = "Seleccione una empresa";
       selectEmpresaDashBoard.add(option);
     }else{
-      option.value = empresas[i]._id;
-      option.text = empresas[i]._nombre;
+      option.value = importadoras[i]._id;
+      option.text = importadoras[i]._nombre;
       selectEmpresaDashBoard.add(option);
     }
 
   }
 }
 document.getElementById("dashBoard").addEventListener("change", function (event) {
+  //aprovechar evento para abrir modal
+    let nombreModal = document.getElementById("nombreModal");
+    let rutModal = document.getElementById("rutModal");
+    let tamanoModal = document.getElementById("tamanoImportadoraModal");
+    let rubroModal = document.getElementById("rubroImportadoraModal");
+
+
+    //vamos a buscar la empresa 
+      let idEmpSelec = document.getElementById("dashBoard").value;
+  
+  for (let empresa of importadoras){
+    if(empresa._id == parseInt(idEmpSelec)){
+      nombreModal.value = empresa._nombre;
+      rutModal.value = empresa._rut;
+      tamanoModal.innerHTML = "";
+      rubroModal.innerHTML = "";
+
+      let optionT = document.createElement("option");
+      optionT.value = empresa._tamano;
+      optionT.text = empresa._tamano;
+      tamanoModal.add(optionT);
+      let optionR = document.createElement("option");
+      optionR.value = empresa._rubro;
+      optionR.text = empresa._rubro;
+      rubroModal.add(optionR);
+
+    }
+  }
+    
+    $("#modalDashBoard").modal("show");
+
+
+
   abrirDash()
 });
 
@@ -224,7 +316,7 @@ function abrirDash(){
   }
   activarDashTotalImportaciones();
   activarDashTotalValorImportaciones();
-  console.log("total",total, "cantidad", cantidad)
+  //console.log("total",total, "cantidad", cantidad)
 }
 var ctx = document.getElementById('tortaTotalImp').getContext('2d');
 var myChart; 

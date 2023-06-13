@@ -29,7 +29,7 @@
       <div class="col-12 col-md-5">
         <div class="row">
           <div class="col-8">
-            <h2>Empresas</h2>
+            <h2>Importadora</h2>
           </div>
           <div class="col-4">
             <input class="btn btn-primary" type="button"  id="abrirModalEmpresa" value="Agregar">
@@ -83,14 +83,7 @@
           <select class="form-select" aria-label="Default select example" id="dashBoard">
           </select>
         </div>
-        <div class="col-4">
-          <h3>Cantidad de importaciones</h3>
-          <canvas id="tortaTotalImp"></canvas>
-        </div>
-        <div class="col-4">
-          <h3>Cantidad de Valor en importaciones</h3>
-          <canvas id="tortaTotalValorImp"></canvas>
-        </div>
+        
       </div>
      
     </div>
@@ -103,7 +96,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Agregar Empresa</h5>
+          <h5 class="modal-title" id="staticBackdropLabel">Agregar Importadora</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -115,6 +108,16 @@
             <div class="mb-3">
               <label class="form-label">Rut</label>
               <input type="text" id="rut" class="form-control" placeholder="ingrese rut">
+            </div>
+            <div class="mb-3">
+              <select class="form-select" aria-label="Default select example" id="tamanoImportadora">
+                
+              </select>
+            </div>
+            <div class="mb-3">
+              <select class="form-select" aria-label="Default select example" id="rubroImportadora">
+                
+              </select>
             </div>
         </div>
         <div class="modal-footer">
@@ -164,10 +167,53 @@
       </div>
     </div>
   </div>
+
+   <!-- Modal dashboar -->
+  <div class="modal fade" id="modalDashBoard" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Agregar Importación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+              <label class="form-label">Nombre</label>
+              <input type="text" id="nombreModal" disabled class="form-control" placeholder="ingrese nombre">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Rut</label>
+              <input type="text" id="rutModal" disabled class="form-control" placeholder="ingrese rut">
+            </div>
+            <div class="mb-3">
+              <label>Tamaño</label>
+              <select class="form-select" disabled aria-label="Default select example" id="tamanoImportadoraModal">
+                
+              </select>
+            </div>
+            <div class="mb-3">
+              <label>Rubro</label>
+              <select class="form-select" disabled aria-label="Default select example" id="rubroImportadoraModal">
+                
+              </select>
+            </div>
+            <div class="col-12">
+          <h3>Cantidad de importaciones</h3>
+          <canvas id="tortaTotalImp"></canvas>
+        </div>
+        <div class="col-12">
+          <h3>Cantidad de Valor en importaciones</h3>
+          <canvas id="tortaTotalValorImp"></canvas>
+        </div>
+        </div>
+  
+      </div>
+    </div>
+  </div>
   
   <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="dist/bundle.js"></script>
+  <script src="src/main.js" type="module"></script>
 </body>
 </html>
