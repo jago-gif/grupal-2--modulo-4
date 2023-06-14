@@ -2,7 +2,7 @@ import { Empresa } from "./empresa.js";
 import { Importacion } from "./importacion.js"
 import { Producto } from "./producto.js"
 import { Importador } from "./importador.js";
-
+import { Prohibicion } from "./Prohibicion.js";
 
 const rubrosImportaciones = [
   "Maquinaria y equipos industriales",
@@ -23,6 +23,86 @@ const tamanoImportadora = [
   "Pequeña",
 ];
 
+
+let prohibicion = new Prohibicion(
+  "Armas de fuego, municiones, explosivos y sustancias químicas, inflamables y asfixiantes",
+  	"Dirección General de Movilización Nacional ( www.dgmn.cl )"
+    )
+let prohibicion1 = new Prohibicion(
+  "Material escrito o audiovisual relativo a las artes marciales destinado a la enseñanza, sin limitación alguna, cualquiera que sea la persona, establecimiento o entidad que efectúe la operación.	",
+  "Dirección General de Movilización Nacional ( www.dgmn.cl )"
+);
+let prohibicion2 = new Prohibicion(
+  "Alcoholes, bebidas alcohólicas y vinagres		",
+  "Servicio Agrícola y Ganadero ( www.sag.gob.cl )"
+);
+let prohibicion3 = new Prohibicion(
+  "Productos vegetales y mercancías que tengan el carácter de peligrosas para los vegetales.		",
+  "Servicio Agrícola y Ganadero ( www.sag.gob.cl )"
+);
+let prohibicion4 = new Prohibicion(
+  "Animales, productos, subproductos y despojos de origen animal o vegetal.	",
+  "Servicio Agrícola y Ganadero ( www.sag.gob.cl )"
+);
+let prohibicion5 = new Prohibicion(
+  "Fertilizantes y pesticidas",
+  "Servicio Agrícola y Ganadero ( www.sag.gob.cl )"
+);
+let prohibicion6 = new Prohibicion(
+  "Productos o subproductos alimenticios de origen animal o vegetal.	",
+  "Servicio Agrícola y Ganadero ( www.sag.gob.cl )"
+);
+let prohibicion7 = new Prohibicion(
+  "Productos alimenticios de cualquier tipo	",
+  "SEREMI de Salud www.minsal.cl"
+);
+let prohibicion8 = new Prohibicion(
+  "Productos farmacéuticos o alimenticios de uso médico y/o cosmético",
+  "Instituto Salud Pública de Chile www.ispch.cl"
+);
+let prohibicion9 = new Prohibicion(
+"Estupefacientes y sustancias psicotrópicas que causen dependencia.	" ,
+ "Instituto Salud Pública de Chile www.ispch.cl Seremi de Salud  www.minsal.cl"
+);
+
+let prohibicion10 = new Prohibicion(
+  "	Sustancias tóxicas o peligrosas para la salud. ",
+  "Seremi de Salud   www.minsal.cl"
+);
+let prohibicion11 = new Prohibicion(
+  " Elementos o materiales fértiles, fisionables o radioactivos, sustancias radioactivas, equipos o instrumentos que generan radiaciones ionizantes	",
+  " Comisión Chilena de Energía Nuclear ( www.cchen.cl ) "
+);
+let prohibicion12 = new Prohibicion(
+  "Recursos hidrobiológicos, cualquiera sea su estado de desarrollo, incluidas las especies de carácter ornamental		",
+  "Subsecretaría de Pesca ( www.subpesca.cl )"
+);
+let prohibicion13 = new Prohibicion(
+  "Productos pesqueros	",
+  "Subsecretaría de Pesca ( www.subpesca.cl )"
+);
+let prohibicion14 = new Prohibicion(
+  "	Equipos de radiocomunicaciones. Requieren autorización previa de uso de banda de transmisión",
+  "Subsecretaría de Telecomunicaciones ( www.subtel.cl )"
+);
+let prohibicion15 = new Prohibicion(
+  "Restos humanos o cenizas de incineración de los mismos	",
+  "Ministerio de Salud, Hospital San Juan de Dios"
+);
+let prohibicion16 = new Prohibicion(
+  "Desperdicios y desechos de pilas, baterías y acumuladores; desechos de cinc, de plomo, de antimonio, berilio, cadmio, cromo, de productos farmacéuticos, de disolventes orgánicos.	",
+  "Ministerio de Salud ( www.minsal.cl )"
+);
+let prohibicion18 = new Prohibicion(
+  "Especies de fauna y flora silvestres protegidas por el Convenio CITES	",
+  "Autoridad definida de acuerdo al artículo IX de la Convención ( www.cites.org )"
+);
+let prohibicion17 = new Prohibicion("La importación de cementos susceptibles de ser empleados en la confección de elementos de resistencia de obras públicas y edificios.	", "Previo a su desaduanamiento deben presentar Certificado de Calidad, emitido por un Laboratorio de Control Técnico de Calidad de Construcción, inscrito en el Registro oficial de Laboratorios de Control Técnico de Calidad de Construcción del Ministerio de Vivienda y Urbanismo.");
+let probicion19 = new Prohibicion("Otra"," ")
+let prohibiciones = prohibicion.getArray();
+
+
+console.log(prohibiciones)
 //creacion manual de productos
 let producto = new Producto("papa", 1000, 1);
 let producto2 = new Producto("peras", 2000, 10);
@@ -165,6 +245,7 @@ $('#abrirModalEmpresa').click(function () {
 let selectEmpresa;
 let selectTamano;
 let selectRubro;
+let selectProhibicion;
 //abrir modal importaciones
 $('#abrirModalImportaciones').click(function () {
   //carga las empresas al selector de modal
@@ -182,6 +263,24 @@ function cargarEmpresasEnSelect() {
     selectEmpresa.add(option);
   }
 }
+//genera los options de select empresas
+function cargarProhibicionEnSelect() {
+  selectProhibicion = document.getElementById("prohibicionSelec");
+  selectProhibicion.innerHTML = "";
+  for (let prohibicion of prohibiciones) {
+    let option = document.createElement("option");
+    option.classList.add("text-truncate");
+    option.value = prohibicion._id;
+    if (prohibicion._mercancia.length>90){
+      let texto = prohibicion._mercancia;
+      option.title = texto.substring(0, 90)+"..."
+    } 
+      option.text = prohibicion._mercancia;
+    
+    selectProhibicion.add(option);
+  }
+}
+cargarProhibicionEnSelect();
 //genera los options de select Tamaño importadora
 function cargarTamanoEnSelect() {
   selectTamano = document.getElementById("tamanoImportadora");
@@ -379,6 +478,20 @@ var options = {
   options: options
 });
 }
+
+const elselectProhibicion = document.getElementById("prohibicionSelec");
+const textoProhibicion = document.getElementById("textoProhibicion");
+elselectProhibicion.addEventListener("change", function (event) {
+
+  if(elselectProhibicion.value != 0){
+    let idProhibicion = elselectProhibicion.value;
+    let texto = "Los productos importados son sujetos a visaciones, certificaciones o vistos buenos para su importación. Para mayor informacion : \n"
+    texto += prohibicion.getById(idProhibicion);
+    textoProhibicion.innerHTML = texto;
+  }
+
+});
+
 mostrarEmpresasSelect()
 cargarEmpresas();
 cargarImportaciones();

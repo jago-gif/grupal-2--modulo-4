@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="index.css">
   <title>Document</title>
 </head>
 <body>
@@ -79,7 +80,7 @@
     <div class="container ">
       <div class="row">
         <div class="col-4 ">
-          <h3>selecione una empresa para ver su dashboard</h3>
+          <h3>seleccione una empresa para ver su dashboard</h3>
           <select class="form-select" aria-label="Default select example" id="dashBoard">
           </select>
         </div>
@@ -91,7 +92,7 @@
   </div>
 
   
-  <!-- Modal Empresa -->
+  <!-- Modal Importadora -->
   <div class="modal fade" id="modalEmpresa" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -130,7 +131,7 @@
     </div>
   </div>
   
-  <!-- Modal Empresa -->
+  <!-- Modal Importacion -->
   <div class="modal fade" id="modalImportaciones" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -142,6 +143,11 @@
           <form id="formImportacion">
             <div class="mb-3">
               <select class="form-select" aria-label="Default select example" id="idEmpresas">
+                
+              </select>
+            </div>
+            <div class="mb-3">
+              <select class="form-select custom-select" aria-label="Default select example" id="prohibicionSelec" aria-multiline="true">
                 
               </select>
             </div>
@@ -158,12 +164,15 @@
               <input type="number" id="valorProducto" class="form-control" placeholder="ingrese el valor del producto">
             </div>
         </div>
+        <div>
+          <p id="textoProhibicion" class="text-danger m-3"></p>
+        </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cerrar</button>
           <button class="btn btn-primary" id="agregarImportacion">Agregar Importacion</button>
         </div>
       </form>
-  
+        
       </div>
     </div>
   </div>
